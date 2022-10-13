@@ -19,7 +19,7 @@ $('.auth_btn').click(function(e) {
         success: function (data) {
 
             if(data.status) {
-                document.location.href = '/profile.php';
+                document.location.href = 'profile.php';
             }
              else {
             
@@ -52,7 +52,8 @@ $('.reg_btn').click(function(e) {
 
     let login = $('input[name = "login"]').val(),
         password = $('input[name = "password"]').val(),
-        name = $('input[name = "name"]').val();
+        name = $('input[name = "name"]').val(),
+        confirm = $('input[name = "confirm"]').val();
     
     $.ajax({
         url: 'logic/singUp.php',
@@ -61,7 +62,8 @@ $('.reg_btn').click(function(e) {
         data: {
             login: login,
             password: password,
-            name: name 
+            name: name,
+            confirm: confirm
         },
         success: function (data) {
 

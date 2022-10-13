@@ -44,9 +44,7 @@ session_start();
          $user = mysqli_fetch_assoc($check);
 
          $_SESSION['user'] = [
-             "id" => $user['id'],
-             "name" => $user['name'],
-             "email" => $user['email']
+             "name" => $user['name']
          ];
 
          $response = [

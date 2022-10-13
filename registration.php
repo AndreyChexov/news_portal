@@ -24,6 +24,8 @@
             <input type="text" class='reg_input' placeholder='Ваш логин' name='login'>
             
             <input type="password" class='reg_input' placeholder='Ваш пароль' name='password'>
+
+            <input type="password" class='reg_input' placeholder='Подтвердите Ваш пароль' name='confirm'>
             
             <input type="text" class='reg_input' placeholder='Ваше имя' name='name'>
 
@@ -31,9 +33,9 @@
 
             <p>У вас уже есть аккаунт? - <a href="auth.php">Войти</a></p>
 
-        <a href="index.php">Вернуться к новостям...</a>
+            <a href="index.php">Вернуться к новостям...</a>
 
-            <p class='msg none'></p>
+                <p class='msg none'></p>
              
     </form>
 
