@@ -1,3 +1,14 @@
+<?php
+    require_once 'logic/connect.php';
+
+    $result = mysqli_query($connect, "SELECT * FROM `allNews`");
+
+
+
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +27,26 @@
                         <input type="text" class="search">
                         <button type="submit">Найти</button>
                     </div>
-                    <a class="auth_btn" href="auth.php"><button>Вход</button></a>
+                <?php
+                        session_start();
+
+                        if($_SESSION['user']) {
+                 ?>
+                                <div class="profile_div">
+                                    <a href="profile.php"><button class="profile_on"></button></a>
+                                    <p class="profile_p"><?php echo $_SESSION['user']['name']?></p>
+                                </div>
+
+                <?php
+                        } else {
+                ?>
+                <a class="auth_btn" href="auth.php"><button>Вход</button></a>
+                <?php
+                        }
+
+                ?>
+
+
             </div>
 
         </header>
@@ -24,74 +54,27 @@
         <section class="news">
                 <div class="news_wrapper container">
                     <div class="main_news">
-                        <div class="main_news_card">
-                                <div class="main_news_data"><?php echo date('l jS \of F Y h:i:s A');?></div>
+                        <?php
+                            while($news = mysqli_fetch_assoc($result)) {
 
-                                <div class="main_news_author">Drake</div>
+                            ?>
+
+
+                        <div class="main_news_card">
+                                <div class="main_news_data"><?php echo  $news['data'];?></div>
+
+                                <div class="main_news_author"><?php echo  $news['author'];?></div>
 
                                 <div class="main_news_text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-                                        aperiam atque beatae cumque distinctio dolore dolores dolorum earum eos
-                                        explicabo hic nam natus neque nesciunt possimus, praesentium quia saepe!
+                                    <?php echo  $news['text'];?>
                                     </div>
                             <button class="main_news_btn">Подробнее</button>
                         </div>
-                        <div class="main_news_card">
-                            <div class="main_news_data"><?php echo date('l jS \of F Y h:i:s A');?></div>
-
-                            <div class="main_news_author">Drake</div>
-
-                            <div class="main_news_text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-                                aperiam atque beatae cumque distinctio dolore dolores dolorum earum eos
-                                explicabo hic nam natus neque nesciunt possimus, praesentium quia saepe!
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, asperiores
-                                    consectetur cum esse ex exercitationem expedita fugit id inventore iusto laudantium
-                                    nemo nesciunt nobis optio quisquam quod tempore ullam vel.
-
-                                A amet aspernatur autem cumque deleniti dicta dolorum eos facilis hic id laboriosam
-                                    magni modi nulla odio officiis possimus, provident quis quisquam recusandae repellat
-                                    reprehenderit sed sit soluta suscipit voluptas?
-
-                            </div>
-                            <button class="main_news_btn">Подробнее</button>
-                        </div>
-                        <div class="main_news_card">
-                            <div class="main_news_data"><?php echo date('l jS \of F Y h:i:s A');?></div>
-
-                            <div class="main_news_author">Drake</div>
-
-                            <div class="main_news_text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-                                aperiam atque beatae cumque distinctio dolore dolores dolorum earum eos
-                                explicabo hic nam natus neque nesciunt possimus, praesentium quia saepe!
-                            </div>
-                            <button class="main_news_btn">Подробнее</button>
-                        </div>
-                        <div class="main_news_card">
-                            <div class="main_news_data"><?php echo date('l jS \of F Y h:i:s A');?></div>
-
-                            <div class="main_news_author">Drake</div>
-
-                            <div class="main_news_text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid
-                                aperiam atque beatae cumque distinctio dolore dolores dolorum earum eos
-                                explicabo hic nam natus neque nesciunt possimus, praesentium quia saepe!
-                            </div>
-                            <button class="main_news_btn">Подробнее</button>
-                        </div>
+                        <?php
+                            }
+                        ?>
 
 
-
-                    </div>
-
-                    <div class="other_news">
-                        <div class="other_news_card"></div>
-                        <div class="other_news_card"></div>
-                        <div class="other_news_card"></div>
-                    </div>
-
-                </div>
         </section>
 
 
