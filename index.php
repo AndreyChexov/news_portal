@@ -35,7 +35,7 @@
                 <?php
                         } else {
                 ?>
-                        <a class="auth_btn" href="auth.php"><button>Войти</button></a>
+                        <a class="enter_btn" href="auth.php"><button>Войти</button></a>
                 <?php
                         }
 
@@ -57,7 +57,7 @@
                             ?>
 
 
-                            <div class="main_news_card">
+                            <div class="main_news_card" style="background-image: url('<?php echo  $news['fon'];?>')">
                                 <div class="main_news_data"><?php echo  $news['data'];?></div>
 
                                 <div class="main_news_author"><?php echo  $news['author'];?></div>

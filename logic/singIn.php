@@ -60,7 +60,7 @@
 
    
 
-     $password = md5($password);
+     $newPass = md5($newPass);
 
 
      $check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newlog' AND `password` = '$newPass'");

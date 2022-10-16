@@ -43,12 +43,13 @@ section {
 .main_news_card {
   width: 325px;
   height: 300px;
-  border: 2px solid darkviolet;
+  border: 2px solid #337679;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-repeat: no-repeat;
 }
 
 footer {
@@ -92,9 +93,6 @@ footer {
 
 .profile_div {
   display: inline-flex;
-  align-items: center;
-}
 
-.profile_p {
-  margin-bottom: 30px;
+  align-items: center;
 }
