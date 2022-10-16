@@ -4,7 +4,7 @@
 
     $author = $_POST['author'];
     $data = $_POST['data'];
-    $text = $_POST['text'];
+    $text = nl2br($_POST['text']);
 
     $errors = [];
 

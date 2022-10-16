@@ -109,7 +109,7 @@ $('.send_btn').click(function(e) {
 
     let author = $('input[name = "author"]').val(),
         data = $('input[name = "data"]').val(),
-        text = $('input[name = "text"]').val();
+        text = $('textarea[name = "text"]').val();
 
     let formData = new FormData();
     formData.append('author', author);

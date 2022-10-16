@@ -2,50 +2,99 @@
     session_start();
     require_once 'connect.php';
 
+    class info {
+        protected $login = '';
+        protected $password = '';
+        protected $confirm = '';
+        protected $name = '';
 
-    $login = preg_replace('/\s+/', '', $_POST['login']);
-    $password = trim($_POST['password']);
-    $confirm = trim($_POST['confirm']);
-    $name = trim($_POST['name']);
+        public function setLogin ($value) {
+            $this->login = $value;
+        }
+
+        public function getLogin () {
+            return $this->login;
+        }
+
+        public function setPassword ($value) {
+            $this->password = $value;
+        }
+
+        public function getPassword () {
+            return $this->password;
+        }
+
+        public function setConfirm ($value) {
+            $this->confirm = $value;
+        }
+
+        public function getConfirm () {
+            return $this->confirm;
+        }
+
+        public function setName ($value) {
+            $this->name = $value;
+        }
+
+        public function getName () {
+            return $this->name;
+        }
+
+    }
+    $newUser = new info();
+
+    $newUser->setLogin(preg_replace('/\s+/', '', $_POST['login']));
+    $newLog = $newUser->getLogin();
+
+    $newUser->setPassword(trim($_POST['password']));
+    $newPass = $newUser->getPassword();
+
+    $newUser->setConfirm(trim($_POST['confirm']));
+    $newConf = $newUser->getConfirm();
+
+    $newUser->setName(trim($_POST['name']));
+    $newName = $newUser->getName();
+
+
 
     $patternName = '/^[а-яёa-zA-Z]+$/iu';
 
 
 
-    $errors = [];
+        $errors = [];
 
-    if($login === '' || strlen($login) < 6) {
-        $errors[] = 'login';
-    } 
+        if($newLog === '' || strlen($newLog) < 6) {
+            $errors[] = 'login';
+        }
 
-    if($password === '' || strlen($password) < 6) {
-        $errors[] = 'password';
-    }
+        if($newPass === '' || strlen($newPass) < 6) {
+            $errors[] = 'password';
+        }
 
-    if($confirm === '' || $confirm !== $password) {
-        $errors[] = 'confirm';
-    }
+        if($newConf === '' || $newConf !== $newPass) {
+            $errors[] = 'confirm';
+        }
 
 
-    if($name === '' || strlen($name) < 2 || !preg_match($patternName, $name)) {
-        $errors[] = 'name';
-    }
+        if($newName === '' || strlen($newName) < 2 || !preg_match($patternName, $newName)) {
+            $errors[] = 'name';
+        }
 
-    if(!empty($errors)) {
-        $response =  [
-            "status" => false,
-            "type" => 1,
-            "message" => 'Проверьте правильность ввода данных',
-            "fields" => $errors
-        ];
+        if(!empty($errors)) {
+            $response =  [
+                "status" => false,
+                "type" => 1,
+                "message" => 'Проверьте правильность ввода данных',
+                "fields" => $errors
+            ];
 
-        echo json_encode($response);
+            echo json_encode($response);
 
-        die();
+            die();
 
-    }
+        }
 
-        $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");
+        $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newLog'");
 
         if(mysqli_num_rows($checkLogin) > 0) {
             $response =  [
@@ -64,10 +113,10 @@
 
 
 
-    if($password === $confirm) {
-        $password = md5($password);
+    if($newPass === $newConf) {
+        $newPass = md5($newPass);
 
-        mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$name', '$password', '$login')");
+        mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$newName', '$newPass', '$newLog')");
 
         $response =  [
             "status" => true,
@@ -77,9 +126,9 @@
         echo json_encode($response);
 
         $user = [
-            "login" => $login,
-            "password" => $password,
-            "name" => $name
+            "login" => $newLog,
+            "password" => $newPass,
+            "name" => $newName
         ];
 
     }

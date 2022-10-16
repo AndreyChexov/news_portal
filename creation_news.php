@@ -20,7 +20,9 @@
     <title>Новая статья</title>
 </head>
 <body>
-    <form id="form" class="auth_form creation_form" enctype="multipart/form-data" style="margin-top: 50px;">
+
+    <form id="easy" class="auth_form creation_form" enctype="multipart/form-data" style="margin-top: 50px;">
+
         <h1>Новая статья</h1>
         <label for="" style="margin-bottom: 5px;">Имя автора</label>
         <input type="text" class="author" name="author" style="margin-bottom: 15px;">
@@ -31,15 +33,16 @@
         <label for="" style="margin-bottom: 5px;">Изображение для статьи</label>
         <input type="file" style="margin-bottom: 15px;" name="img">
         <label for="" style="margin-bottom: 5px;">Текст статьи</label>
-        <input type="text" cols="5" rows="5" maxlength="10000" style="margin-bottom: 15px;" name="text"></input>
+        <textarea form="easy" cols="5" rows="5"  style="margin-bottom: 15px;" name="text"></textarea>
 
         <button class="send_btn" type="submit" style="margin-bottom: 15px; border-radius: 10px;">Создать статью</button>
 
         <p class='msg none'></p>
         <a href="profile.php" style="margin-bottom: 15px;">Вернуться в профиль</a>
         <a href="index.php" style="margin-bottom: 15px;">Вернуться к новостям</a>
-    </form>
 
+
+</form>
 
     <script src='js/jquery-3.4.1.min.js'></script>
     <script src='js/jsAuth/index.js'></script>

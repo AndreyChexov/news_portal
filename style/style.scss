@@ -4,17 +4,15 @@
 
 header {
   max-width: 1920px;
-  text-align: center;
-  height: 70px;
   background: rgba(22, 146, 167, 0.3);
-  line-height: 50px;
+  display: flex;
+  justify-content: center;
 }
 
 .header_wrapper {
+  align-items: center;
   display: inline-flex;
   justify-content: space-between;
-  align-content: center;
-
 }
 
 .label {
@@ -68,9 +66,11 @@ footer {
   margin-bottom: 20px;
 }
 
-.main_news_btn {
-  margin-top: 30px;
+.main_news_link {
+  margin-top: 50px;
   margin-left: 220px;
+  text-decoration-line: none;
+  color: green;
 }
 
 .main_news_text {
