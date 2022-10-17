@@ -60,37 +60,40 @@
 
    
 
-     $newPass = md5($newPass);
+        $newPass = md5($newPass);
 
 
-     $check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newlog' AND `password` = '$newPass'");
-        
-    
-     if(mysqli_num_rows($check) > 0) {
-
-         $user = mysqli_fetch_assoc($check);
-
-         $_SESSION['user'] = [
-             "name" => $user['name']
-         ];
-
-         $response = [
-             "status" => true
-         ];
+        $check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newlog' AND `password` = '$newPass'");
 
 
-         echo json_encode($response);
-      
+        if(mysqli_num_rows($check) > 0) {
 
-     } else {
-         $response = [
-             "status" => false,
-             "message" => 'Неверный логин или пароль'
-         ];
+            $user = mysqli_fetch_assoc($check);
+
+            $_SESSION['user'] = [
+                "name" => $user['name']
+            ];
+
+            $response = [
+                "status" => true
+            ];
 
 
-         echo json_encode($response);
-     }
+            echo json_encode($response);
+
+
+        } else {
+            $response = [
+                "status" => false,
+                "message" => 'Неверный логин или пароль'
+            ];
+
+
+            echo json_encode($response);
+        }
+
+
+
 
 
 

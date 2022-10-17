@@ -3,10 +3,10 @@
     require_once 'connect.php';
 
     class info {
-        protected $login = '';
-        protected $password = '';
-        protected $confirm = '';
-        protected $name = '';
+        protected $login;
+        protected $password;
+        protected $confirm;
+        protected $name;
 
         public function setLogin ($value) {
             $this->login = $value;
@@ -16,31 +16,32 @@
             return $this->login;
         }
 
-        public function setPassword ($value) {
-            $this->password = $value;
-        }
+            public function setPassword ($value) {
+                $this->password = $value;
+            }
 
-        public function getPassword () {
-            return $this->password;
-        }
+            public function getPassword () {
+                return $this->password;
+            }
 
-        public function setConfirm ($value) {
-            $this->confirm = $value;
-        }
+                public function setConfirm ($value) {
+                    $this->confirm = $value;
+                }
 
-        public function getConfirm () {
-            return $this->confirm;
-        }
+                public function getConfirm () {
+                    return $this->confirm;
+                }
 
-        public function setName ($value) {
-            $this->name = $value;
-        }
+                    public function setName ($value) {
+                        $this->name = $value;
+                    }
 
-        public function getName () {
-            return $this->name;
-        }
+                    public function getName () {
+                        return $this->name;
+                    }
 
     }
+
     $newUser = new info();
 
     $newUser->setLogin(preg_replace('/\s+/', '', $_POST['login']));
@@ -61,7 +62,7 @@
 
 
 
-        $errors = [];
+    $errors = [];
 
         if($newLog === '' || strlen($newLog) < 6) {
             $errors[] = 'login';
@@ -94,6 +95,8 @@
 
         }
 
+
+
         $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newLog'");
 
         if(mysqli_num_rows($checkLogin) > 0) {
@@ -110,7 +113,6 @@
 
         }
     
-
 
 
     if($newPass === $newConf) {

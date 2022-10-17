@@ -21,9 +21,11 @@
 </head>
 <body>
 
-    <form id="easy" class="auth_form creation_form" enctype="multipart/form-data" style="margin-top: 50px;">
+    <form class="auth_form creation_form" enctype="multipart/form-data" style="margin-top: 50px;">
 
         <h1>Новая статья</h1>
+        <label for="" style="margin-bottom: 5px;">Название статьи</label>
+        <input type="text" class="name" name="newsName" style="margin-bottom: 15px;">
         <label for="" style="margin-bottom: 5px;">Имя автора</label>
         <input type="text" class="author" name="author" style="margin-bottom: 15px;">
         <label for="" style="margin-bottom: 5px;">Дата создания статьи</label>
@@ -33,7 +35,7 @@
         <label for="" style="margin-bottom: 5px;">Изображение для статьи</label>
         <input type="file" style="margin-bottom: 15px;" name="img">
         <label for="" style="margin-bottom: 5px;">Текст статьи</label>
-        <textarea form="easy" cols="5" rows="5"  style="margin-bottom: 15px;" name="text"></textarea>
+        <textarea cols="5" rows="5"  style="margin-bottom: 15px;" name="text"></textarea>
 
         <button class="send_btn" type="submit" style="margin-bottom: 15px; border-radius: 10px;">Создать статью</button>
 

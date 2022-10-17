@@ -109,7 +109,8 @@ $('.send_btn').click(function(e) {
 
     let author = $('input[name = "author"]').val(),
         data = $('input[name = "data"]').val(),
-        text = $('textarea[name = "text"]').val();
+        text = $('textarea[name = "text"]').val(),
+        name = $('input[name = "newsName"]').val();
 
     let formData = new FormData();
     formData.append('author', author);
@@ -117,6 +118,7 @@ $('.send_btn').click(function(e) {
     formData.append('text', text);
     formData.append('img', img);
     formData.append('fon_img', fonImg);
+    formData.append('newsName', name);
 
     $.ajax({
         url: 'logic/sendNew.php',

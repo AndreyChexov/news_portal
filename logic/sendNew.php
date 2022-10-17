@@ -2,15 +2,21 @@
     session_start();
     require_once 'connect.php';
 
+
     $author = $_POST['author'];
     $data = $_POST['data'];
     $text = nl2br($_POST['text']);
+    $name = $_POST['newsName'];
 
     $errors = [];
 
-    if($author == '') {
+    if($author === '') {
         $errors[] = 'author';
     }
+
+     if($name === '') {
+         $errors[] = 'name';
+     }
 
     if(!$text) {
         $errors[] = 'text';
@@ -55,7 +61,7 @@
             if(!move_uploaded_file($_FILES['fon_img']['tmp_name'], '../' . $fon_img) ){
                 $response =  [
                     "status" => false,
-                    "message" => 'Ошибка загрузки изображения'
+                    "message" => 'Ошибка загрузки фонового изображения'
                 ];
 
                 echo json_encode($response);
@@ -64,7 +70,7 @@
 
             }
 
-        mysqli_query($connect, "INSERT INTO `allNews` (`data`, `text`, `author`, `img`, `id`, `fon`) VALUES ('$data', '$text', '$author', '$img', NULL, '$fon_img')");
+        mysqli_query($connect, "INSERT INTO `allNews` (`data`, `text`, `author`, `img`, `id`, `fon`, `name`) VALUES ('$data', '$text', '$author', '$img', NULL, '$fon_img', '$name')");
 
         $response =  [
             "status" => true,
