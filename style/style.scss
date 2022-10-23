@@ -4,7 +4,7 @@
 
 header {
   max-width: 1920px;
-  background: rgba(22, 146, 167, 0.3);
+  background: rgba(23, 126, 141, 0.3);
   display: flex;
   justify-content: center;
 }
@@ -18,12 +18,6 @@ header {
 .label {
   font-size: 25px;
 
-}
-
-
-section {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .news {
@@ -83,24 +77,23 @@ footer {
 .main_news_link {
 
   text-decoration-line: none;
-  color: #15d251;
+  color: #54ec08;
 }
 
 .main_news_text {
-  height: 75px;
+  height: 72px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+
 }
 
 .profile_on {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: green;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .profile_div {
