@@ -4,9 +4,9 @@
 
      require_once 'connect.php';
 
-    class UserEnter {
-        protected $login = '';
-        protected $password = '';
+    class UserEnter extends Connect {
+        protected $login;
+        protected $password;
 
         public function setLogin ($value) {
             $this->login = $value;
@@ -16,81 +16,114 @@
             return $this->login;
         }
 
-        public function setPassword ($value) {
-            $this->password = $value;
-        }
+                public function setPassword ($value) {
+                    $this->password = $value;
+                }
 
-        public function getPassword () {
-            return $this->password;
+                public function getPassword () {
+                    return $this->password;
         }
 
     }
 
-        $userForEnter  = new UserEnter();
-
-        $userForEnter->setLogin(trim($_POST['login']));
-        $newlog = $userForEnter->getLogin();
-
-        $userForEnter->setPassword(trim($_POST['password']));
-        $newPass = $userForEnter->getPassword();
-
-         $errors = [];
 
 
-        if($newlog === '') {
-            $errors[] = 'login';
+        class Validation extends UserEnter {
+            public $errors = [];
+            public $response;
+
+            public function checkLog ($val) {
+                if($val === '') {
+                    $this->errors[] =  'login';
+                }
+            }
+
+            public function checkPass ($val) {
+                if($val === '') {
+                    $this->errors[] = 'password';
+                }
+            }
+
+            public function getCheckResult () {
+                if(!empty($this->errors)) {
+                    $this->response =  [
+                        "status" => false,
+                        "type" => 1,
+                        "message" => 'Проверьте правильность ввода данных',
+                        "fields" => $this->errors
+                    ];
+
+                    echo json_encode($this->response);
+
+                    die();
+                }
+            }
+
         }
 
-        if($newPass === '') {
-            $errors[] = 'password';
+        class CheckDataForEnter extends Validation {
+            public $check;
+
+            public $user;
+
+
+            public function checkData ($log, $pass) {
+                $pass = md5($pass);
+
+                $this->check = mysqli_query($this->connect, "SELECT * FROM `users` WHERE `login` = '$log' AND `password` = '$pass'");
+
+                if(mysqli_num_rows($this->check) > 0) {
+
+                    $this->user = mysqli_fetch_assoc($this->check);
+
+                    $_SESSION['user'] = [
+                        "name" => $this->user['name']
+                    ];
+
+                    $this->response = [
+                        "status" => true
+                    ];
+
+
+                    echo json_encode($this->response);
+                } else {
+                    $this->response = [
+                        "status" => false,
+                        "message" => 'Неверный логин или пароль'
+                    ];
+
+
+                    echo json_encode($this->response);
+                }
+
+            }
+
         }
 
-        if(!empty($errors)) {
-            $response =  [
-                "status" => false,
-                "type" => 1,
-                "message" => 'Проверьте правильность ввода данных',
-                "fields" => $errors
-            ];
-
-            echo json_encode($response);
-
-            die();
-    }
-
-   
-
-        $newPass = md5($newPass);
 
 
-        $check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newlog' AND `password` = '$newPass'");
+            $enter = new CheckDataForEnter();
+
+            $enter->setDB();
+            $enter->checkCon();
+
+            $enter->setLogin(trim($_POST['login']));
+            $enter->setPassword(trim($_POST['password']));
+
+            $log = $enter->getLogin();
+            $pass = $enter->getPassword();
+
+            $enter->checkLog($log);
+            $enter->checkPass($pass);
+
+            $enter->getCheckResult();
 
 
-        if(mysqli_num_rows($check) > 0) {
-
-            $user = mysqli_fetch_assoc($check);
-
-            $_SESSION['user'] = [
-                "name" => $user['name']
-            ];
-
-            $response = [
-                "status" => true
-            ];
+            $enter->checkData($log, $pass);
 
 
-            echo json_encode($response);
 
 
-        } else {
-            $response = [
-                "status" => false,
-                "message" => 'Неверный логин или пароль'
-            ];
-
-
-            echo json_encode($response);
-        }
 
 
 

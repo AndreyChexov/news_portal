@@ -1,9 +1,19 @@
 <?php
 
+class Connect {
+    public $connect;
 
- $connect = mysqli_connect('localhost', 'root','', 'news');
-
-    if(!$connect) {
-    die('Database error');
+    public function setDB () {
+        $this->connect = mysqli_connect('localhost', 'root','', 'news');
     }
+
+    public function checkCon () {
+        if(!$this->connect) {
+            die('Database error');
+        }
+    }
+
+}
+
+
 

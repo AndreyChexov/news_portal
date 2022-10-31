@@ -2,38 +2,38 @@
     session_start();
     require_once 'connect.php';
 
-    class info {
+    class InfoUser extends Connect {
         protected $login;
         protected $password;
         protected $confirm;
         protected $name;
 
-        public function setLogin ($value) {
-            $this->login = $value;
+        public function setLogin ($val) {
+            $this->login = $val;
         }
 
         public function getLogin () {
             return $this->login;
         }
 
-            public function setPassword ($value) {
-                $this->password = $value;
+            public function setPassword ($val) {
+                $this->password = $val;
             }
 
             public function getPassword () {
                 return $this->password;
             }
 
-                public function setConfirm ($value) {
-                    $this->confirm = $value;
+                public function setConfirm ($val) {
+                    $this->confirm = $val;
                 }
 
                 public function getConfirm () {
                     return $this->confirm;
                 }
 
-                    public function setName ($value) {
-                        $this->name = $value;
+                    public function setName ($val) {
+                        $this->name = $val;
                     }
 
                     public function getName () {
@@ -42,106 +42,222 @@
 
     }
 
-    $newUser = new info();
-
-    $newUser->setLogin(preg_replace('/\s+/', '', $_POST['login']));
-    $newLog = $newUser->getLogin();
-
-    $newUser->setPassword(trim($_POST['password']));
-    $newPass = $newUser->getPassword();
-
-    $newUser->setConfirm(trim($_POST['confirm']));
-    $newConf = $newUser->getConfirm();
-
-    $newUser->setName(trim($_POST['name']));
-    $newName = $newUser->getName();
 
 
+    class ValidationUser extends InfoUser {
+        protected $errors = [];
+        public $response;
+        public $patternName;
 
-    $patternName = '/^[а-яёa-zA-Z]+$/iu';
-
-
-
-    $errors = [];
-
-        if($newLog === '' || strlen($newLog) < 6) {
-            $errors[] = 'login';
-        }
-
-        if($newPass === '' || strlen($newPass) < 6) {
-            $errors[] = 'password';
-        }
-
-        if($newConf === '' || $newConf !== $newPass) {
-            $errors[] = 'confirm';
+        public function setpattern()
+        {
+          $this->patternName = '/^[а-яёa-zA-Z]+$/iu';
         }
 
 
-        if($newName === '' || strlen($newName) < 2 || !preg_match($patternName, $newName)) {
-            $errors[] = 'name';
+        public function valLog ($val) {
+            if($val === '' || strlen($val) < 6) {
+                $this->errors[] = 'login';
+            }
         }
 
-        if(!empty($errors)) {
-            $response =  [
-                "status" => false,
-                "type" => 1,
-                "message" => 'Проверьте правильность ввода данных',
-                "fields" => $errors
-            ];
-
-            echo json_encode($response);
-
-            die();
-
+        public function valPass ($val) {
+            if($val === '' || strlen($val) < 6) {
+                $this->errors[] = 'password';
+            }
         }
 
-
-
-        $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newLog'");
-
-        if(mysqli_num_rows($checkLogin) > 0) {
-            $response =  [
-                "status" => false,
-                "type" => 1,
-                "message" => 'Такой логин уже существует',
-                "fields" => ['login']
-            ];
-
-            echo json_encode($response);
-
-            die();
-
+        public function valConf ($val) {
+            if($val === '' || strlen($val) < 6) {
+                $this->errors[] = 'confirm';
+            }
         }
-    
 
+        public function valName ($val) {
+            if($val === '' || strlen($val) < 6) {
+                $this->errors[] = 'name';
+            }
+        }
 
-    if($newPass === $newConf) {
-        $newPass = md5($newPass);
+        public function getResultOfVal () {
+            if(!empty($this->errors)) {
+                $this->response =  [
+                    "status" => false,
+                    "type" => 1,
+                    "message" => 'Проверьте правильность ввода данных',
+                    "fields" => $this->errors
+                ];
 
-        mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$newName', '$newPass', '$newLog')");
+                echo json_encode($this->response);
 
-        $response =  [
-            "status" => true,
-            "message" => 'Регистрация прошла успешно',
-        ];
+                die();
 
-        echo json_encode($response);
-
-        $user = [
-            "login" => $newLog,
-            "password" => $newPass,
-            "name" => $newName
-        ];
-
+            }
+        }
     }
-    else {
-            $response =  [
-                "status" => false,
-                "message" => 'Введите корректные данные',
-            ];
+//        $errors = [];
+//
+//
+//
+//
+//
+//        if($newConf === '' || $newConf !== $newPass) {
+//            $errors[] = 'confirm';
+//        }
+//
+//
+//        if($newName === '' || strlen($newName) < 2 || !preg_match($patternName, $newName)) {
+//            $errors[] = 'name';
+//        }
+//
+//        if(!empty($errors)) {
+//            $response =  [
+//                "status" => false,
+//                "type" => 1,
+//                "message" => 'Проверьте правильность ввода данных',
+//                "fields" => $errors
+//            ];
+//
+//            echo json_encode($response);
+//
+//            die();
+//
+//        }
 
-            echo json_encode($response);
+        class CheckEnterErrors extends ValidationUser {
+
+            protected $checkLogin;
+            public $user;
+
+            public function setCheckLog ($val) {
+                $this->checkLogin = mysqli_query($this->connect, "SELECT * FROM `users` WHERE `login` = '$val'");
+            }
+
+            public function checkLoginRR () {
+                if(mysqli_num_rows($this->checkLogin) > 0) {
+                    $this->response =  [
+                        "status" => false,
+                        "type" => 1,
+                        "message" => 'Такой логин уже существует',
+                        "fields" => ['login']
+                    ];
+
+                    echo json_encode($this->response);
+
+                    die();
+                }
+            }
+
+            public function enterTokab () {
+                if($this->password === $this->confirm) {
+                    $this->password = md5($this->password);
+
+                    mysqli_query($this->connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$this->name', '$this->password', '$this->login')");
+
+                    $this->response =  [
+                        "status" => true,
+                        "message" => 'Регистрация прошла успешно',
+                    ];
+
+                    echo json_encode($this->response);
+
+                    $this->user = [
+                        "login" => $this->password,
+                        "password" => $this->password,
+                        "name" => $this->name
+                    ];
+
+                } else {
+                    $this->response =  [
+                        "status" => false,
+                        "message" => 'Введите корректные данные',
+                    ];
+
+                    echo json_encode($this->response);
+                }
+            }
+
         }
+
+
+
+        $enter = new CheckEnterErrors();
+
+        $enter->setDB();
+        $enter->checkCon();
+
+        $enter->setLogin(preg_replace('/\s+/', '', $_POST['login']));
+
+
+        $enter->setPassword(trim($_POST['password']));
+
+
+        $enter->setConfirm(trim($_POST['confirm']));
+
+
+        $enter->setName(trim($_POST['name']));
+
+        $log = $enter->getLogin();
+        $pass = $enter->getPassword();
+        $conf = $enter->getConfirm();
+        $name = $enter->getName();
+
+        $enter->valLog($log);
+        $enter->valPass($pass);
+        $enter->valConf($conf);
+        $enter->valName($name);
+
+        $enter->getResultOfVal();
+        $enter->setCheckLog($log);
+        $enter->checkLoginRR();
+
+        $enter->enterTokab();
+
+//        $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$newLog'");
+//
+//        if(mysqli_num_rows($checkLogin) > 0) {
+//            $response =  [
+//                "status" => false,
+//                "type" => 1,
+//                "message" => 'Такой логин уже существует',
+//                "fields" => ['login']
+//            ];
+//
+//            echo json_encode($response);
+//
+//            die();
+//
+//        }
+//
+//
+//
+//    if($newPass === $newConf) {
+//        $newPass = md5($newPass);
+//
+//        mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$newName', '$newPass', '$newLog')");
+//
+//        $response =  [
+//            "status" => true,
+//            "message" => 'Регистрация прошла успешно',
+//        ];
+//
+//        echo json_encode($response);
+//
+//        $user = [
+//            "login" => $newLog,
+//            "password" => $newPass,
+//            "name" => $newName
+//        ];
+//
+//    }
+//    else {
+//            $response =  [
+//                "status" => false,
+//                "message" => 'Введите корректные данные',
+//            ];
+//
+//            echo json_encode($response);
+//        }
 
 
 
@@ -212,8 +328,3 @@
 //            echo json_encode($response);
 //
 //        }
-
-
-       
-
-?>
