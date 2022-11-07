@@ -1,7 +1,6 @@
 <?php
-    require_once 'logic/connect.php';
 
-    $result = mysqli_query($connect, "SELECT * FROM `allNews`");
+    require_once 'Classes/Connection/Connect.php';
 
 ?>
 
@@ -54,28 +53,54 @@
                 <div class="news_wrapper container">
                     <div class="main_news">
                         <?php
-                        while($news = mysqli_fetch_assoc($result)) {
+
+
+                        class ShowNews extends Connect {
+                            public $result;
+                            public $news;
+
+                            public function setRes () {
+                                $this->result = mysqli_query($this->connect, "SELECT * FROM `allNews`");
+                            }
+
+                            public function getRes () {
+                                return $this->result;
+                            }
+
+
+                            public function show ($val) {
+                                while( $this->news = mysqli_fetch_assoc($val)) {
 
                             ?>
 
 
-                            <div class="main_news_card" style="background-image: url('<?php echo  $news['fon'];?>')">
-                                <div class="main_news_data"><?php echo  $news['data'];?></div>
+                            <div class="main_news_card" style="background-image: url('<?php echo  $this->news['fon'];?>')">
+                                <div class="main_news_data"><?php echo  $this->news['data'];?></div>
 
-                                <div class="main_news_name"><?php echo  $news['name'];?></div>
+                                <div class="main_news_name"><?php echo  $this->news['name'];?></div>
 
 
                                 <div class="main_news_text">
-                                    <?php echo  $news['text'];?>
+                                    <?php echo  $this->news['text'];?>
                                 </div>
                                 <div class="main_news_footer">
-                                    <div class="main_news_author"><?php echo  $news['author'];?></div>
-                                    <a class="main_news_link" href="main.php?news_id=<?php echo $news['id'];?>">Подробнее...</a>
+                                    <div class="main_news_author"><?php echo  $this->news['author'];?></div>
+                                    <a class="main_news_link" href="main.php?news_id=<?php echo $this->news['id'];?>">Подробнее...</a>
                                 </div>
 
                             </div>
                             <?php
                         }
+                        }
+                        }
+
+                        $new = new ShowNews();
+                        $new->setDB();
+                        $new->checkCon();
+                        $new->setRes();
+                        $getFromDB = $new->getRes();
+
+                        $new->show($getFromDB);
                         ?>
                     </div>
                 </div>

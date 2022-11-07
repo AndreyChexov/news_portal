@@ -1,8 +1,7 @@
 <?php
-    require_once 'logic/connect.php';
 
-    $result = mysqli_query($connect, "SELECT * FROM `allNews`");
-?>
+    ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,15 +16,32 @@
 </head>
 <body>
         <?php
-        while($news = mysqli_fetch_assoc($result)) {
-            if($_GET['news_id'] == $news['id']) {
+
+
+        class ShowOneNew extends ShowNews {
+            private $getId;
+
+            public function setId () {
+                $this->getId = $_GET['news_id'];
+            }
+
+            public function getId ()
+            {
+                return $this->getId;
+            }
+
+            public function showNew ($id, $val) {
+
+                while($this->news = mysqli_fetch_assoc($val)) {
+
+                if($id == $this->news['id']) {
         ?>
                     <div class="news_page container">
-                        <div class="news_page_name" style="background-image: url('<?php echo $news['fon']?>')"><?php echo $news['name']?></div>
-                        <div class="news_page_text"><?php echo $news['text']?></div>
+                        <div class="news_page_name" style="background-image: url('<?php echo $this->news['fon']?>')"><?php echo $this->news['name']?></div>
+                        <div class="news_page_text"><?php echo $this->news['text']?></div>
                         <div class="news_page_footer">
-                            <div>Автор: <?php echo $news['author']?></div>
-                            <div><?php echo $news['data']?></div>
+                            <div>Автор: <?php echo $this->news['author']?></div>
+                            <div><?php echo $this->news['data']?></div>
                         </div>
                         <a class="news_page_link" href="index.php">Вернуться к списку новостей...</a>
                     </div>
@@ -34,6 +50,17 @@
 
             }
         }
+        }
+
+        }
+
+        $oneNew = new ShowOneNew();
+        $oneNew->setDB();
+        $oneNew->checkCon();
+        $oneNew->setId();
+        $id = $oneNew->getId();
+        $getFormDB = $oneNew->getRes();
+        $oneNew->showNew($id, $getFormDB);
         ?>
 
 

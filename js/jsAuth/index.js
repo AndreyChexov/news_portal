@@ -56,7 +56,7 @@ $('.reg_btn').click(function(e) {
         confirm = $('input[name = "confirm"]').val();
     
     $.ajax({
-        url: 'logic/singUp.php',
+        url: 'Classes/SingUP/RegNewUser.php',
         type: 'POST',
         dataType: 'json',
         data: {
