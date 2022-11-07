@@ -9,7 +9,7 @@ $('.auth_btn').click(function(e) {
         password = $('input[name = "password"]').val();
     
     $.ajax({
-        url: 'logic/singIn.php',
+        url: 'Classes/SingIn/CheckUserData.php',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -121,7 +121,7 @@ $('.send_btn').click(function(e) {
     formData.append('newsName', name);
 
     $.ajax({
-        url: 'logic/sendNew.php',
+        url: 'Classes/SendNew/SendNew.php',
         type: 'POST',
         dataType: 'json',
         processData: false,

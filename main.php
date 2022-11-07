@@ -18,6 +18,7 @@
         <?php
 
 
+
         class ShowOneNew extends ShowNews {
             private $getId;
 
@@ -57,6 +58,7 @@
         $oneNew = new ShowOneNew();
         $oneNew->setDB();
         $oneNew->checkCon();
+
         $oneNew->setId();
         $id = $oneNew->getId();
         $getFormDB = $oneNew->getRes();
