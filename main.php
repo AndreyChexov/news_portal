@@ -1,5 +1,6 @@
 <?php
-
+require 'Classes/Connection/Connect.php';
+require 'Classes/ShowNews/GetNewsFromDB.php';
     ?>
 
 <!doctype html>
@@ -19,7 +20,7 @@
 
 
 
-        class ShowOneNew extends ShowNews {
+        class ShowOneNew extends GetNewsFromDB {
             private $getId;
 
             public function setId () {
@@ -55,14 +56,17 @@
 
         }
 
-        $oneNew = new ShowOneNew();
-        $oneNew->setDB();
-        $oneNew->checkCon();
+        $newConnect = new Connect();
+        $newConnect->setDB();
+        $newConnect->checkCon();
+        $connect = $newConnect->connect;
 
-        $oneNew->setId();
-        $id = $oneNew->getId();
-        $getFormDB = $oneNew->getRes();
-        $oneNew->showNew($id, $getFormDB);
+        $showSingle = new ShowOneNew();
+        $showSingle->setRes($connect);
+        $showSingle->setId();
+        $id = $showSingle->getId();
+        $getFormDB = $showSingle->getRes();
+        $showSingle->showNew($id, $getFormDB);
         ?>
 
 

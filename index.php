@@ -1,6 +1,6 @@
 <?php
-
-    require_once 'Classes/Connection/Connect.php';
+    require 'Classes/ShowNews/GetNewsFromDB.php';
+    require 'Classes/Connection/Connect.php';
 
 ?>
 
@@ -55,52 +55,48 @@
                         <?php
 
 
-                        class ShowNews extends Connect {
-                            public $result;
-                            public $news;
-
-                            public function setRes () {
-                                $this->result = mysqli_query($this->connect, "SELECT * FROM `allNews`");
-                            }
-
-                            public function getRes () {
-                                return $this->result;
-                            }
+                        class ShowNew extends GetNewsFromDB {
 
 
                             public function show ($val) {
                                 while( $this->news = mysqli_fetch_assoc($val)) {
 
+
+
                             ?>
 
 
-                            <div class="main_news_card" style="background-image: url('<?php echo  $this->news['fon'];?>')">
-                                <div class="main_news_data"><?php echo  $this->news['data'];?></div>
+                            <div class="main_news_card" style="background-image: url('<?php echo  $this->news['fon']?>')">
+                                <div class="main_news_data"><?php echo  $this->news['data']?></div>
 
-                                <div class="main_news_name"><?php echo  $this->news['name'];?></div>
+                                <div class="main_news_name"><?php echo  $this->news['name']?></div>
 
 
                                 <div class="main_news_text">
-                                    <?php echo  $this->news['text'];?>
+                                    <?php echo  $this->news['text']?>
                                 </div>
                                 <div class="main_news_footer">
-                                    <div class="main_news_author"><?php echo  $this->news['author'];?></div>
-                                    <a class="main_news_link" href="main.php?news_id=<?php echo $this->news['id'];?>">Подробнее...</a>
+                                    <div class="main_news_author"><?php echo  $this->news['author']?></div>
+                                    <a class="main_news_link" href="main.php?news_id=<?php echo $this->news['id']?>">Подробнее...</a>
                                 </div>
 
                             </div>
                             <?php
-                        }
-                        }
-                        }
 
-                        $new = new ShowNews();
-                        $new->setDB();
-                        $new->checkCon();
-                        $new->setRes();
-                        $getFromDB = $new->getRes();
+                        }
+                        }
+                        }
+                        $newConnection = new Connect();
+                        $newConnection->setDB();
+                        $newConnection->checkCon();
+                        $connect = $newConnection->connect;
 
-                        $new->show($getFromDB);
+                        $showNews = new ShowNew();
+                        $showNews->setRes($connect);
+
+                        $getRes = $showNews->getRes();
+                        $showNews->show($getRes);
+
                         ?>
                     </div>
                 </div>
