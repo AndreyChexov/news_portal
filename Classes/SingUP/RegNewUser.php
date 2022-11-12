@@ -48,7 +48,7 @@ class RegNewUser extends ValidationUser {
             echo json_encode($this->response);
 
             $this->user = [
-                "login" => $pass,
+                "login" => $log,
                 "password" => $pass,
                 "name" => $name
             ];

@@ -105,3 +105,35 @@ button:hover {
     border-radius: 10px;
     margin-bottom: 20px;
 }
+
+.news_pagination {
+    text-align: center;
+    font-size: 22px;
+    margin: 30px 0 30px 0;
+
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0 30px 0;
+
+}
+
+.text_comment {
+    width: 500px;
+    height: 100px;
+}
+
+.comment_btn {
+    border: 2px solid grey;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 3px;
+}
+
+.comment_btn:hover {
+    background: #54ec08;
+}

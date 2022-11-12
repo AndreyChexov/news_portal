@@ -1,6 +1,6 @@
 <?php
-    require 'Classes/ShowNews/GetNewsFromDB.php';
     require 'Classes/Connection/Connect.php';
+    require_once 'Classes/Pagination/Pagination.php';
 
 ?>
 
@@ -17,35 +17,7 @@
     <title>News</title>
 </head>
 <body>
-        <header>
-            <div class='header_wrapper container'>
-                    <div class="label">News portal</div>
-
-                <?php
-                        session_start();
-
-                        if($_SESSION['user']) {
-                 ?>
-                                <div class="profile_div">
-                                    <a href="profile.php">
-                                        <img class="profile_on" src="icons/free-icon-user-1550584.png" alt="">
-                                    </a>
-                                    <p class="profile_p"><?php echo $_SESSION['user']['name']?></p>
-                                </div>
-
-                <?php
-                        } else {
-                ?>
-                        <a class="enter_btn" href="auth.php"><button>Войти</button></a>
-                <?php
-                        }
-
-                ?>
-
-
-            </div>
-
-        </header>
+        <? require 'Classes/Header.php'?>
 
         <section class="news">
 
@@ -53,60 +25,59 @@
                 <div class="news_wrapper container">
                     <div class="main_news">
                         <?php
-
-
-                        class ShowNew extends GetNewsFromDB {
-
-
-                            public function show ($val) {
-                                while( $this->news = mysqli_fetch_assoc($val)) {
-
-
-
-                            ?>
-
-
-                            <div class="main_news_card" style="background-image: url('<?php echo  $this->news['fon']?>')">
-                                <div class="main_news_data"><?php echo  $this->news['data']?></div>
-
-                                <div class="main_news_name"><?php echo  $this->news['name']?></div>
-
-
-                                <div class="main_news_text">
-                                    <?php echo  $this->news['text']?>
-                                </div>
-                                <div class="main_news_footer">
-                                    <div class="main_news_author"><?php echo  $this->news['author']?></div>
-                                    <a class="main_news_link" href="main.php?news_id=<?php echo $this->news['id']?>">Подробнее...</a>
-                                </div>
-
-                            </div>
-                            <?php
-
-                        }
-                        }
-                        }
                         $newConnection = new Connect();
                         $newConnection->setDB();
                         $newConnection->checkCon();
                         $connect = $newConnection->connect;
 
-                        $showNews = new ShowNew();
-                        $showNews->setRes($connect);
+                        $pagination = new Pagination('allNews', $connect);
+                        $news = $pagination->getData();
+                        $page = $pagination->getPaginationNumber();
 
-                        $getRes = $showNews->getRes();
-                        $showNews->show($getRes);
+
+                        function show ($val) {
+
+                                while( $news = mysqli_fetch_assoc($val)) {
+
+
+                            ?>
+
+
+                            <div class="main_news_card" style="background-image: url('<?php echo  $news['fon']?>')">
+                                <div class="main_news_data"><?php echo  $news['data']?></div>
+
+                                <div class="main_news_name"><?php echo  $news['name']?></div>
+
+
+                                <div class="main_news_text">
+                                    <?php echo  $news['text']?>
+                                </div>
+                                <div class="main_news_footer">
+                                    <div class="main_news_author"><?php echo  $news['author']?></div>
+                                    <a class="main_news_link" href="main.php?news_id=<?php echo $news['id']?>">Подробнее...</a>
+                                </div>
+
+                            </div>
+
+                       <?php
+                                }
+                        }
+
+                        show($news);
 
                         ?>
                     </div>
                 </div>
 
-
         </section>
+        <div class='news_pagination'>
+            <? for ($i = 1; $i <= $page; $i++ ): ?>
+                <a  href="?page=<? echo $i; ?>"> <? echo $i; ?></a>
+            <? endfor; ?>
+        </div>
 
-        <footer>
-            <h1>Made by Chexov</h1>
-        </footer>
+
+    <? require 'Classes/Footer.php';?>
 
         <script src='js/jquery-3.4.1.min.js'></script>
         <script src='js/jsAuth/index.js'></script>

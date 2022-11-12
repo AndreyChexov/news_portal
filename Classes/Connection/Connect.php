@@ -5,6 +5,7 @@
 
     public function setDB () {
         $this->connect = mysqli_connect('localhost', 'root','', 'news');
+
     }
 
 
@@ -13,5 +14,7 @@
             die('Database error');
         }
     }
+
+
 
 }

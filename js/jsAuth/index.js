@@ -150,3 +150,36 @@ $('.send_btn').click(function(e) {
 
     })
 })
+
+// send comment
+
+$('.comment_btn').click(function(e) {
+
+    e.preventDefault();
+
+
+    let comment = $('textarea[name = "comment"]').val(),
+        page = $('input[name = "page"]').val();
+
+    $.ajax({
+        url: 'Classes/Comments/SendComment.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            comment: comment,
+            page: page
+        },
+        success: function (data) {
+            if(data.status) {
+
+                document.querySelector('.comment_form').reset();
+            } else  {
+                alert("Что-то пошло не так...");
+            }
+
+
+        }
+
+
+    })
+})
