@@ -110,6 +110,7 @@ $('.send_btn').click(function(e) {
     let author = $('input[name = "author"]').val(),
         data = $('input[name = "data"]').val(),
         text = $('textarea[name = "text"]').val(),
+        category = $('select[name = "category"]').val(),
         name = $('input[name = "newsName"]').val();
 
     let formData = new FormData();
@@ -119,6 +120,8 @@ $('.send_btn').click(function(e) {
     formData.append('img', img);
     formData.append('fon_img', fonImg);
     formData.append('newsName', name);
+    formData.append('category', category);
+
 
     $.ajax({
         url: 'Classes/SendNew/SendNew.php',
@@ -182,4 +185,14 @@ $('.comment_btn').click(function(e) {
 
 
     })
+})
+
+
+$('.comments_answer_btn').click(function(e) {
+
+    e.preventDefault();
+
+    $('.comments_answer').removeClass('none_answer');
+
+
 })

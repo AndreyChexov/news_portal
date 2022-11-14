@@ -9,6 +9,7 @@ class  NewData {
     protected $response;
     protected $img;
     protected $fonImg;
+    protected $category;
 
     public function setImg ($val) {
         $this->img = $val;
@@ -82,5 +83,14 @@ class  NewData {
 
                 public function getName () {
                     return $this->name;
-                }
+
+    }
+
+    public function setCategory ($val) {
+        $this->category = $val;
+    }
+
+    public function getCategory () {
+        return $this->category;
+    }
 }

@@ -69,12 +69,11 @@ class RegNewUser extends ValidationUser {
     $regNewUser = new RegNewUser();
     $newUser = new NewUser();
     $valid = new ValidationUser();
-    $connection = new \Connect();
 
 
-    $connection->setDB();
-    $connection->checkCon();
-    $connect = $connection->connect;
+    \Connect::getInstance()->setDB();
+    \Connect::getInstance()->checkCon();
+    $connect = \Connect::getInstance()->connect;
 
     $newUser->setName(trim($_POST['name']));
     $newUser->setPassword(trim($_POST['password']));

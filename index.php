@@ -1,7 +1,6 @@
 <?php
     require 'Classes/Connection/Connect.php';
-    require_once 'Classes/Pagination/Pagination.php';
-
+    require 'Classes/Pagination/Pagination.php';
 ?>
 
 
@@ -25,10 +24,9 @@
                 <div class="news_wrapper container">
                     <div class="main_news">
                         <?php
-                        $newConnection = new Connect();
-                        $newConnection->setDB();
-                        $newConnection->checkCon();
-                        $connect = $newConnection->connect;
+                        Connect::getInstance()->setDB();
+                        Connect::getInstance()->checkCon();
+                        $connect = Connect::getInstance()->connect;
 
                         $pagination = new Pagination('allNews', $connect);
                         $news = $pagination->getData();
@@ -39,29 +37,24 @@
 
                                 while( $news = mysqli_fetch_assoc($val)) {
 
+                                    switch ($news) {
+                                        case 'animals':
+                                        if($news['categories'] == 'animals') {
+                                            require 'Classes/ShowAnimals.php';
+                                        }
+                                        break;
+                                        case 'cities':
+                                            if($news['categories'] == 'cities') {
+                                                require 'Classes/ShowCities.php';
+                                            }
+                                            break;
+                                        default:
+                                            require 'Classes/ShowAllNews.php';
+                                            break;
+                                    }
 
-                            ?>
-
-
-                            <div class="main_news_card" style="background-image: url('<?php echo  $news['fon']?>')">
-                                <div class="main_news_data"><?php echo  $news['data']?></div>
-
-                                <div class="main_news_name"><?php echo  $news['name']?></div>
-
-
-                                <div class="main_news_text">
-                                    <?php echo  $news['text']?>
-                                </div>
-                                <div class="main_news_footer">
-                                    <div class="main_news_author"><?php echo  $news['author']?></div>
-                                    <a class="main_news_link" href="main.php?news_id=<?php echo $news['id']?>">Подробнее...</a>
-                                </div>
-
-                            </div>
-
-                       <?php
+                                    }
                                 }
-                        }
 
                         show($news);
 
@@ -72,7 +65,7 @@
         </section>
         <div class='news_pagination'>
             <? for ($i = 1; $i <= $page; $i++ ): ?>
-                <a  href="?page=<? echo $i; ?>"> <? echo $i; ?></a>
+                <a href="?page=<? echo $i; ?>"> <? echo $i; ?></a>
             <? endfor; ?>
         </div>
 

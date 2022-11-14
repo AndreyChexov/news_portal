@@ -83,6 +83,9 @@ footer {
   text-decoration-line: none;
   color: #54ec08;
 }
+.creation_form {
+  height: 785px;
+}
 
 .main_news_text {
   height: 72px;
@@ -154,6 +157,7 @@ footer {
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: column;
 }
 
 .text_comment {
@@ -172,8 +176,80 @@ footer {
   border: 1px solid grey;
   border-radius: 5px;
   margin: 10px 0 10px 0;
+  background: grey;
+  color: white;
+}
+
+.list_comments_wrapper a{
+  text-decoration: none;
+  color: powderblue;
 }
 
 .link_for_answer {
   margin-left: 400px;
+}
+
+.search_input {
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.search_btn {
+  border: none;
+  border-radius: 5px;
+}
+
+.dropbtn {
+  background: #2a2727;
+  opacity: 0.9;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.comments_answer {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments_answer textarea {
+  margin: 5px 0 5px 0;
+}
+.none_answer {
+  display: none;
 }

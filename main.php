@@ -76,18 +76,30 @@
                             <div class="wrapper_for_details">
                                 <div class="time_comment"><? echo $comments['time']?></div>
                                 <div class="author_comment">Автор: <? echo  $comments['author']?></div>
+                                <a class="comments_answer_btn" href="#">Ответить</a>
 
                             </div>
-                                <a href="#" class="link_for_answer">Ответить</a>
+
                             </div>
+
+                            <form class="comments_answer none_answer">
+                                <textarea name="comment_answer" id="" cols="50" rows="2" class="for_answer"></textarea>
+                                <button type="submit">Отправить</button>
+                            </form>
+
+                                    <div class="wrapper_for_details none_answer">
+                                        <div class="time_comment"><? echo $comments['time']?></div>
+                                        <div class="author_comment">Автор: <? echo  $comments['author']?></div>
+                                        <a class="comments_answer_btn" href="#">Ответить</a>
+                                    </div>
                         </div>
                         <?php
+
             }}}
 
-        $newConnect = new Connect();
-        $newConnect->setDB();
-        $newConnect->checkCon();
-        $connect = $newConnect->connect;
+        Connect::getInstance()->setDB();
+        Connect::getInstance()->checkCon();
+        $connect = Connect::getInstance()->connect;
 
         $showSingle = new ShowOneNew();
         $showSingle->setRes($connect);

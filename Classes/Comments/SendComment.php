@@ -44,10 +44,10 @@ class SendComment
 
 
 }
-    $newConnection = new Connect();
-    $newConnection->setDB();
-    $newConnection->checkCon();
-    $connect = $newConnection->connect;
+
+    Connect::getInstance()->setDB();
+    Connect::getInstance()->checkCon();
+    $connect = Connect::getInstance()->connect;
 
     $newCom = new GetComment();
 

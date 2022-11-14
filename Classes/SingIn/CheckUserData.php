@@ -45,10 +45,10 @@
     }
 
 
-    $newConnect = new Connect();
-    $newConnect->setDB();
-    $newConnect->checkCon();
-    $connect = $newConnect->connect;
+
+    Connect::getInstance()->setDB();
+    Connect::getInstance()->checkCon();
+    $connect = Connect::getInstance()->connect;
 
     $user = new UserData();
     $valid = new ValidationDataUser();

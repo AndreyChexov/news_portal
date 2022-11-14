@@ -10,9 +10,9 @@ class SendNew
     protected $response;
     protected $errors;
 
-    public function sendNews ($data, $text, $author, $img, $fon, $name, $connect) {
+    public function sendNews ($data, $text, $author, $img, $fon, $name, $connect, $category) {
         if(empty($this->errors)) {
-            mysqli_query($connect, "INSERT INTO `allNews` (`data`, `text`, `author`, `img`, `id`, `fon`, `name`) VALUES ('$data', '$text', '$author', '$img', NULL, '$fon', '$name')");
+            mysqli_query($connect, "INSERT INTO `allNews` (`data`, `text`, `author`, `img`, `id`, `fon`, `name`, `categories`) VALUES ('$data', '$text', '$author', '$img', NULL, '$fon', '$name','$category')");
 
             $this->response =  [
                 "status" => true,
@@ -31,14 +31,13 @@ class SendNew
         }
     }
 }
-    $newConnect = new Connect();
     $newData = new NewData();
     $valid = new ValidationNewData();
     $sendNew = new SendNew();
 
-    $newConnect->setDB();
-    $newConnect->checkCon();
-    $connect = $newConnect->connect;
+    Connect::getInstance()->setDB();
+    Connect::getInstance()->checkCon();
+    $connect = Connect::getInstance()->connect;
 
     $newData->setData($_POST['data']);
     $newData->setText(nl2br($_POST['text']));
@@ -46,6 +45,7 @@ class SendNew
     $newData->setAuthor($_POST['author']);
     $newData->setImg('img/' . time() . $_FILES['img']['name']);
     $newData->setFonImg('img/' . time() . $_FILES['fon_img']['name']);
+    $newData->setCategory($_POST['category']);
 
     $data = $newData->getData();
     $text = $newData->getText();
@@ -53,6 +53,7 @@ class SendNew
     $author = $newData->getAuthor();
     $img = $newData->getImg();
     $fonImg = $newData->getFonImg();
+    $category = $newData->getCategory();
 
     $newData->imgUpload($img, $fonImg);
 
@@ -62,6 +63,6 @@ class SendNew
     $valid->authorVal($author);
     $valid->getValResult();
 
-    $sendNew->sendNews($data,$text,$author,$img,$fonImg,$name,$connect);
+    $sendNew->sendNews($data,$text,$author,$img,$fonImg,$name,$connect,$category);
 
 
