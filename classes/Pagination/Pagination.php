@@ -6,8 +6,9 @@ class Pagination
 
     public function __construct($table, $category)
     {
+        $connect = Connect::getInstance()->getConnect();
         $this->table = $table;
-        $this->db = Connect::getInstance()->getConnect();
+        $this->db = $connect;
         $this->setTotalRecords($category);
     }
 

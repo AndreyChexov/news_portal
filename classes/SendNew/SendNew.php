@@ -30,6 +30,7 @@ class SendNew
         }
     }
 
+
 }
     $newData = new NewData();
     $valid = new ValidationNewData();
@@ -71,7 +72,7 @@ class SendNew
     $valid->authorVal($author);
     $valid->getValResult();
 
-    $sendNew->sendNews($data,$text,$author,$img,$fonImg,$name,Connect::getInstance()->getConnect(), $categoryId);
+   $sendNew->sendNews($data,$text,$author,$img,$fonImg,$name,Connect::getInstance()->getConnect(), $categoryId);
 
 
 

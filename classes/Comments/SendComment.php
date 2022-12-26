@@ -1,8 +1,7 @@
 <?php
 
     require '../Connection/Connect.php';
-    require '../../controllers/CommentsController/GetComment.php';
-    session_start();
+   
 
 class SendComment
 {
@@ -46,19 +45,19 @@ class SendComment
 }
 
 
-    $newCom = new GetComment();
+    // $newCom = new GetComment();
 
-    $newCom->setText($_POST['comment']);
-    $newCom->setAuthor($_SESSION['user']['name']);
-    $newCom->setTime(date('l jS \of F Y h:i:s A'));
-    $newCom->setPage($_POST['page']);
+    // $newCom->setText();
+    // $newCom->setAuthor();
+    // $newCom->setTime();
+    // $newCom->setPage();
 
 
 
-    $text = $newCom->getText();
-    $author = $newCom->getAuthor();
-    $time = $newCom->getTime();
-    $page = $newCom->getPage();
+    $text = $_POST['comment'];
+    $author = $_SESSION['user']['name'];
+    $time = date('l jS \of F Y h:i:s A');
+    $page = $_POST['page'];
 
     $sendComment = new SendComment();
 

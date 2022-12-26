@@ -5,9 +5,12 @@ class PaginationController extends AbstractController {
 
     public function index(): void
     {
-        
-   
-      $this->render('pagination');
+        $pag = $this->getModel('pagination');
+
+        $pag->getData();
+        $page = $pag->getPaginationNumber();
+
+      $this->render('pagination', ['page' => $page]);
 
     }
 

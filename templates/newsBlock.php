@@ -9,7 +9,7 @@
                 </div>
                 <div class="main_news_footer">
                     <div class="main_news_author"><?php echo  $news['author']?></div>
-                    <a class="main_news_link" href="/news/index.php?path=main/index/&news_id=<?php echo $news['id']?>">Подробнее...</a>
+                    <a class="main_news_link" href="/news/index.php?path=news/single/&news_id=<?php echo $news['id']?>">Подробнее...</a>
                 </div>
 
                 </div>

@@ -12,8 +12,9 @@ class Route
             $route = explode('/', $pathData[1]);
             $controller = $route[0] ?? '';
             $action = $route[1] ?? '';
-            $params = $route[2] ?? [];
-
+            $params[] = $route[2] ?? [];
+            $params[] = $route[3] ?? [];
+        
         }
 
         if (empty($controller)) {

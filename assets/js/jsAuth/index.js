@@ -166,7 +166,7 @@ $('.comment_btn').click(function(e) {
         page = $('input[name = "page"]').val();
 
     $.ajax({
-        url: 'classes/Comments/SendComment.php',
+        url: 'controllers/CommentsController.php',
         type: 'POST',
         dataType: 'json',
         data: {

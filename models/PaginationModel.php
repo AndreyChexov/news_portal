@@ -4,18 +4,17 @@ class PaginationModel
 {
     protected $db, $table, $total_record, $limit = 6;
 
-    public function __construct($table, $category)
+    public function __construct($table, $connect)
     {
-        $connect = Connect::getInstance()->getConnect();
         $this->table = $table;
         $this->db = $connect;
-        $this->setTotalRecords($category);
+
     }
 
     public function setTotalRecords ($category) {
         $count = "SELECT COUNT(*) FROM $this->table WHERE name_category = '$category'";
         $result = mysqli_query($this->db, $count);
-        $this->total_record = mysqli_fetch_array($result)[0];
+        return $this->total_record = mysqli_fetch_array($result)[0];
     }
 
     public function currentPage () {
@@ -26,7 +25,8 @@ class PaginationModel
 
         $offset = ($this->currentPage() * $this->limit) - $this->limit;
         $sql = "SELECT allNews.new_name, allNews.data, allNews.text, allNews.fon, allNews.author, allNews.id, categories.name_category FROM news_categories LEFT JOIN allNews ON (allNews.id = news_categories.id_new)  LEFT JOIN categories ON (categories.name_category = news_categories.category_name)  LIMIT $offset, $this->limit";
-        return mysqli_query($this->db, $sql);
+        mysqli_query($this->db, $sql);
+       
     }
 
     public function getPaginationNumber () {
