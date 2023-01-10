@@ -1,4 +1,5 @@
 <?php
+
       
       foreach($params['allNews'] as $news) {
 
@@ -35,7 +36,6 @@
  
 <?php
 
-            
 foreach ($params['allComments'] as $comments):
 
     if($_GET['news_id'] == $comments['page']) {
@@ -59,6 +59,8 @@ foreach ($params['allComments'] as $comments):
 <?php
         } 
         endforeach;
+     
+        
 ?>
 
      

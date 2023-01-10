@@ -6,7 +6,7 @@
             foreach ($params['allNews'] as $news):
                 require 'newsBlock.php';
             endforeach;
-     
+                
         ?>
 
         </div>

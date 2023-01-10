@@ -11,10 +11,6 @@
 
         require_once 'templates/template.php';
     }
-    public function renderJson ($resposne = []) {
-        
-        echo json_encode($resposne);
-    }
 
     protected function getModel(string $name)
     {

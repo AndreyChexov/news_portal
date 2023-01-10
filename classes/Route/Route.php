@@ -16,7 +16,7 @@ class Route
             $params[] = $route[3] ?? [];
         
         }
-
+        
         if (empty($controller)) {
             $controller = 'news';
         }

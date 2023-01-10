@@ -25,26 +25,37 @@ class CommentsModel
         return $result;
     }
 
-    public function sendCommentToDB ($time, $author, $text, $page) {
-        $connect = Connect::getInstance()->getConnect();
+   
+
+    public function saveCommentToDB ()
+     {
         
+        $connect = Connect::getInstance()->getConnect();
+        $response = '';
+        $text = $_POST['comment'];
+        $author = $_SESSION['user']['name'];
+        $time = date('l jS \of F Y h:i:s A');
+        $page = $_POST['page'];
+       
         if($_SESSION['user']['name']) {
 
             mysqli_query($connect, "INSERT INTO `comments` (`id`, `text`, `author`, `time`, `page`) VALUES (NULL, '$text', '$author', '$time', '$page')");
 
-            $this->response =  [
+            $response =  [
                 "status" => true,
             ];
 
-            echo json_encode($this->response);
+            return json_encode($response);
         } else
         {
-            $this->response =  [
+            $response =  [
                 "status" => false,
             ];
 
-            echo json_encode($this->response);
+            return json_encode($response);
         }
+
+        
     }
 
 }

@@ -5,4 +5,4 @@ session_start();
 
 $route = new Route();
 $route->run();
-
+print_r(get_declared_classes());

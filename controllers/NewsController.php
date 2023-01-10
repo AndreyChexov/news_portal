@@ -10,7 +10,6 @@ class NewsController extends AbstractController
         
         $newsModel = $this->getModel('news');
         $allNews = $newsModel->getAllNews();
-
     
         $this->render('news', ['allNews' => $allNews]);
    
@@ -54,4 +53,6 @@ class NewsController extends AbstractController
 
                 $this->render('main', ['allNews' => $allNews, 'allComments' => $allComments]);
             }
+
+ 
 }
