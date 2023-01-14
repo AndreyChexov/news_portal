@@ -9,7 +9,7 @@ $('.auth_btn').click(function(e) {
         password = $('input[name = "password"]').val();
     
     $.ajax({
-        url: 'classes/SingIn/CheckUserData.php',
+        url: '/news/index.php?path=auth/log',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -56,7 +56,7 @@ $('.reg_btn').click(function(e) {
         confirm = $('input[name = "confirm"]').val();
     
     $.ajax({
-        url: 'classes/SingUP/RegNewUser.php',
+        url: '/news/index.php?path=registration/newUser',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -89,8 +89,8 @@ $('.reg_btn').click(function(e) {
 
 // send new
 
-    let img = false;
-    let fonImg = false;
+    let img = '';
+    let fonImg = '';
 
     $('input[name = "img"]').change(function (e) {
        img = e.target.files[0];
@@ -109,7 +109,6 @@ $('.send_btn').click(function(e) {
     let author = $('input[name = "author"]').val(),
         data = $('input[name = "data"]').val(),
         text = $('textarea[name = "text"]').val(),
-        category = $('select[name = "category"]').val(),
         name = $('input[name = "newsName"]').val();
 
     let formData = new FormData();
@@ -119,12 +118,11 @@ $('.send_btn').click(function(e) {
     formData.append('img', img);
     formData.append('fon_img', fonImg);
     formData.append('newsName', name);
-    formData.append('category', category);
 
 
 
     $.ajax({
-        url: 'classes/SendNew/SendNew.php',
+        url: '/news/index.php?path=news/saveNews',
         type: 'POST',
         dataType: 'json',
         processData: false,
@@ -142,6 +140,7 @@ $('.send_btn').click(function(e) {
                 if(data.type === 1) {
                     data.fields.forEach(field => {
                         $(`input[name = "${field}"]`).addClass('error');
+                        $(`textarea[name = "${field}"]`).addClass('error');
                     })
                 }
 
@@ -166,7 +165,7 @@ $('.comment_btn').click(function(e) {
         page = $('input[name = "page"]').val();
 
     $.ajax({
-        url: 'controllers/CommentsController.php',
+        url: 'comment/news/index.php?path=comments',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -175,7 +174,7 @@ $('.comment_btn').click(function(e) {
         },
         success: function (data) {
             if(data.status) {
-
+                
                 document.querySelector('.comment_form').reset();
             } else  {
                 alert("Что-то пошло не так...");

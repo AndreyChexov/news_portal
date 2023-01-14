@@ -8,7 +8,7 @@ class LogOutController extends AbstractController
 
         unset($_SESSION['user']);
 
-        header('Location: http://localhost/news/index.php?path=news');
+        header('Location: /news/index.php?path=news');
       
     }
 }

@@ -1,7 +1,7 @@
 <?php
    
     if(!$_SESSION['user']) {
-        header('Location: index.php');
+        header('Location: /news/index.php?path=news');
     }
     
 ?>

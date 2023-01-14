@@ -39,7 +39,8 @@ class Route
 
             $controllerObject = new $className();
             $controllerObject->$action($params);
-        
+            
+           
         } else {
 
             require_once 'templates/404.php';

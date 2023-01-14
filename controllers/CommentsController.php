@@ -7,9 +7,11 @@ class CommentsController extends AbstractController {
     {
     
         $comments = $this->getModel('comments');
+        $page = $_POST['page'];
+        $text = $_POST['comment'];
         
-       $comments->saveCommentToDB();
-      
+        $comments->saveCommentToDB($page, $text);
+        
     }
 
     

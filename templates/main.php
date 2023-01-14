@@ -15,23 +15,18 @@
 
           </div>
 
-<?php
- 
-  }
-}
-
-
-?>
-
+<?php }}?>
                 <form class="comments comment_form">
 
-                    <label for="" style="margin-bottom: 40px; font-size: 20px">Комментарии:</label>
+                    
                     <textarea class="text_comment" type="text" name="comment"></textarea>
                     <input name="page" type="hidden" value="<? echo $_GET['news_id']; ?>">
                     <button class="comment_btn" type="submit">Оставить комментарий</button>
-
+                    
+                    <label for="" style="margin-top: 40px; font-size: 20px">Комментарии:</label>
+                    
                 </form>
-
+                        
 
  
 <?php

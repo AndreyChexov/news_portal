@@ -25,5 +25,76 @@ class NewsModel
         return $result;
     }
 
+    
+    
+        public function saveNewsToDB ($data, $text, $author, $img, $fon, $name) {
+            $connect = Connect::getInstance()->getConnect(); 
+            $response = '';
+            $errors = [];
+    
+
+                if($author === '') {
+                    $errors[] = 'author';
+                }
+            
+
+                if($name === '') {
+                    $errors[] = 'newsName';
+                }
+            
+
+                if(!$data) {
+                    $errors[] = 'data';
+                }
+            
+                if(!$text) {
+                    $errors[] = 'text';
+                }
+
+                if(!$img) {
+                    $errors[] = 'img';
+                }
+
+                if(!$fon) {
+                    $errors[] = 'fon_img';
+                }
+            
+
+            
+                if(!empty($errors)) {
+                    $response =  [
+                        "status" => false,
+                        "type" => 1,
+                        "message" => 'Проверьте правильность ввода данных',
+                        "fields" => $errors
+                    ];
+
+                    echo json_encode($response);
+
+                    die();
+
+                }
+
+            if(mysqli_query($connect, "INSERT INTO `allNews` (`data`, `text`, `author`, `img`, `id`, `fon`, `new_name`) VALUES ('$data', '$text', '$author', '$img', NULL, '$fon', '$name')")) {
+    
+                  $response =  [
+                    "status" => true,
+                    "message" => 'Статья успешно создана',
+                ];
+    
+                echo json_encode($response);
+            }
+            else {
+                $response =  [
+                    "status" => false,
+                    "message" => 'Заполните все поля',
+                ];
+    
+                echo json_encode($response);
+            }
+        }
+    
+    
+    
 
 }

@@ -2,98 +2,148 @@
 
 class UsersModel {
 
-    protected $check;
-    protected $user;
-    protected $response;
+    public function logIn ($login, $pass) {
 
+        $connect = Connect::getInstance()->getConnect();
+        
 
-        public function logIn ($log, $pass, $connect) {
-            $pass = md5($pass);
+        $errors = [];
 
-            $this->check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$log' AND `password` = '$pass'");
-
-            if(mysqli_num_rows($this->check) > 0) {
-
-                $this->user = mysqli_fetch_assoc($this->check);
-
-                $_SESSION['user'] = [
-                    "name" => $this->user['name']
-                ];
-
-                $this->response = [
-                    "status" => true
-                ];
-
-
-                echo json_encode($this->response);
-            } else {
-                $this->response = [
-                    "status" => false,
-                    "message" => 'Неверный логин или пароль'
-                ];
-
-
-                echo json_encode($this->response);
+        if($login === '') {
+                $errors[] =  'login';
             }
+        
+         if($pass === '') {
+                $errors[] = 'password';
+        }
+        
 
+        if(!empty($errors)) {
+                $response =  [
+                    "status" => false,
+                    "type" => 1,
+                    "message" => 'Проверьте правильность ввода данных',
+                    "fields" => $errors
+                ];
+
+                echo json_encode($response);
+
+                die();
+            }
+        
+        $pass = md5($pass);
+        $check = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login' AND `password` = '$pass'");
+
+        if(mysqli_num_rows($check) > 0) {
+
+            $user = mysqli_fetch_assoc($check);
+
+            $_SESSION['user'] = [
+                "name" => $user['name']
+            ];
+
+            $response = [
+                "status" => true
+            ];
+
+
+            echo json_encode($response);
+        } else {
+            $response = [
+                "status" => false,
+                "message" => 'Неверный логин или пароль'
+            ];
+
+
+            echo json_encode($response);
         }
 
+    }
 
 
+    public function createNewUser ($login, $pass, $confirm, $name) {
 
+        $connect = Connect::getInstance()->getConnect();
+        $errors = [];
 
-        public function checkLogin ($connect, $log) {
+        
+            if( $login === '' || strlen($login) < 6) {
+                $errors[] = 'login';
+            }
+        
+    
+       
+            if($pass === '' || strlen($pass) < 6) {
+                $errors[] = 'password';
+            }
+        
+    
+        
+            if($confirm === '' || strlen($confirm) < 6) {
+                $errors[] = 'confirm';
+            }
+        
+    
+        
+            if($name === '' || strlen($name) < 6) {
+                $errors[] = 'name';
+            }
+        
+       
+            if(!empty($errors)) {
+                $response =  [
+                    "status" => false,
+                    "type" => 1,
+                    "message" => 'Проверьте правильность ввода данных',
+                    "fields" => $errors
+                ];
+    
+                echo json_encode($response);
+    
+                die();
+    
+            }
 
-            
-            $user = '';
-            $response = '';
-            $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$log'");
+            $checkLogin = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");
     
             if(mysqli_num_rows($checkLogin) > 0) {
-                $this->response =  [
+                $response =  [
                     "status" => false,
                     "type" => 1,
                     "message" => 'Такой логин уже существует',
                     "fields" => ['login']
                 ];
     
-                echo json_encode($this->response);
+                echo json_encode($response);
     
                 die();
             }
-        }
+        
     
-        public function saveUserToDB ($pass, $conf, $name, $log, $connect) {
-
-            $response = '';
-            
-            if($pass === $conf) {
+        
+            if($pass === $confirm) {
     
                 $pass = md5($pass);
     
-                mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$name', '$pass', '$log')");
+                mysqli_query($connect, "INSERT INTO `users` (`id`, `name`, `password`, `login`) VALUES (NULL, '$name', '$pass', '$login')");
     
-                $this->response =  [
+                $response =  [
                     "status" => true,
                     "message" => 'Регистрация прошла успешно',
                 ];
     
-                echo json_encode($this->response);
-    
-                $this->user = [
-                    "login" => $log,
-                    "password" => $pass,
-                    "name" => $name
-                ];
-    
+                echo json_encode($response);
+
+                
             } else {
-                $this->response =  [
+                $response =  [
                     "status" => false,
                     "message" => 'Введите корректные данные',
                 ];
     
-                echo json_encode($this->response);
+                echo json_encode($response);
             }
-        }
+        
+    }
 
 }

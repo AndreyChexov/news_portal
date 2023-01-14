@@ -27,15 +27,15 @@ class CommentsModel
 
    
 
-    public function saveCommentToDB ()
+    public function saveCommentToDB ($page, $text)
      {
         
         $connect = Connect::getInstance()->getConnect();
         $response = '';
-        $text = $_POST['comment'];
+       
         $author = $_SESSION['user']['name'];
         $time = date('l jS \of F Y h:i:s A');
-        $page = $_POST['page'];
+        
        
         if($_SESSION['user']['name']) {
 
@@ -45,14 +45,14 @@ class CommentsModel
                 "status" => true,
             ];
 
-            return json_encode($response);
+            echo json_encode($response);
         } else
         {
             $response =  [
                 "status" => false,
             ];
 
-            return json_encode($response);
+            echo json_encode($response);
         }
 
         

@@ -21,11 +21,11 @@
                         if($_SESSION['user']) {
                  ?>
                                 <div class="profile_div">
-                                    <a href="/news/index.php?path=profile" >
+                                    <a href="/news/index.php?path=profile"> 
                                         <img class="profile_on" src="assets/icons/free-icon-user-1550584.png"  alt="user_avatar">
                                     </a>
                                     <p class="profile_p"><?php echo $_SESSION['user']['name']?></p>
-                                    <?php
+                 <?php
                         } else {
                 ?>
                         <a class="enter_btn" href="/news/index.php?path=auth"><button>Войти</button></a>
