@@ -1,7 +1,15 @@
 
 RewriteEngine on
 
-RewriteCond $1 !=favicon.ico
+
+
+RewriteCond $1 !=favicon.ic
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*) index.php
+
+RewriteRule ^(.*)$ index.php
+
+
+
+
+

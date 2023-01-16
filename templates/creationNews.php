@@ -1,7 +1,7 @@
 <?php
     
     if(!$_SESSION['user']) {
-        header('Location: auth.php');
+        header('Location: /portal?path=news');
     }
 
 ?>
@@ -32,8 +32,8 @@
         <button class="send_btn send_cat" type="submit" style="margin-bottom: 15px; border-radius: 10px;">Создать статью</button>
 
         <p class='msg none'></p>
-        <a href="/news/index.php?path=profile" style="margin-bottom: 15px;">Вернуться в профиль</a>
-        <a href="/news/index.php?path=news" style="margin-bottom: 15px;">Вернуться к новостям</a>
+        <a href="/portal?path=profile" style="margin-bottom: 15px;">Вернуться в профиль</a>
+        <a href="/portal?path=news" style="margin-bottom: 15px;">Вернуться к новостям</a>
 
 
 </form>

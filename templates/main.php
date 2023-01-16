@@ -69,4 +69,4 @@ foreach ($params['allComments'] as $comments):
 
    
     
- <a class="news_page_link" href="/news/index.php?path=news">Вернуться к списку новостей...</a>
+ <a class="news_page_link" href="/portal?path=news">Вернуться к списку новостей...</a>

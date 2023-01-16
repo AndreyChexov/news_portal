@@ -9,7 +9,7 @@ $('.auth_btn').click(function(e) {
         password = $('input[name = "password"]').val();
     
     $.ajax({
-        url: '/news/index.php?path=auth/log',
+        url: '/portal/?path=auth/log',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -19,7 +19,7 @@ $('.auth_btn').click(function(e) {
         success: function (data) {
 
             if(data.status) {
-                document.location.href = '/news/index.php?path=profile';
+                document.location.href = '/portal?path=profile';
             }
              else {
             
@@ -56,7 +56,7 @@ $('.reg_btn').click(function(e) {
         confirm = $('input[name = "confirm"]').val();
     
     $.ajax({
-        url: '/news/index.php?path=registration/newUser',
+        url: '/portal/?path=registration/newUser',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -122,7 +122,7 @@ $('.send_btn').click(function(e) {
 
 
     $.ajax({
-        url: '/news/index.php?path=news/saveNews',
+        url: '/portal/?path=news/saveNews',
         type: 'POST',
         dataType: 'json',
         processData: false,
@@ -165,7 +165,7 @@ $('.comment_btn').click(function(e) {
         page = $('input[name = "page"]').val();
 
     $.ajax({
-        url: 'comment/news/index.php?path=comments',
+        url: '/portal/?path=comments',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -177,7 +177,7 @@ $('.comment_btn').click(function(e) {
                 
                 document.querySelector('.comment_form').reset();
             } else  {
-                alert("Что-то пошло не так...");
+                alert("Нужно больше текста..");
             }
 
 

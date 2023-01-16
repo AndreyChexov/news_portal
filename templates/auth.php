@@ -2,7 +2,7 @@
 
 
     if($_SESSION['user']) {
-        header('Location: /news/index.php?path=profile');
+        header('Location: /portal?path=profile');
     }
 ?>
 
@@ -16,9 +16,9 @@
 
             <button type='submit' class='auth_btn'>Войти</button>
 
-            <p>У вас нет аккаунта? - <a href="/news/index.php?path=registration">Зарегистрироваться</a></p>
+            <p>У вас нет аккаунта? - <a href="/portal?path=registration">Зарегистрироваться</a></p>
 
-                 <a href="/news/index.php?path=news">Вернуться к новостям...</a>
+                 <a href="/portal?path=news">Вернуться к новостям...</a>
 
              <p class='msg none'></p>
     </form>

@@ -31,11 +31,20 @@ class CommentsModel
      {
         
         $connect = Connect::getInstance()->getConnect();
-        $response = '';
+        
        
         $author = $_SESSION['user']['name'];
         $time = date('l jS \of F Y h:i:s A');
         
+        if($text === '') {
+            $response =  [
+                "status" => false,
+            ];
+
+            echo json_encode($response);
+
+            die();
+        }
        
         if($_SESSION['user']['name']) {
 

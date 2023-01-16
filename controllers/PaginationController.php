@@ -7,10 +7,9 @@ class PaginationController extends AbstractController {
     {
         $pag = $this->getModel('pagination');
 
-        $pag->getData();
-        $page = $pag->getPaginationNumber();
+        $pag->pagination();
 
-      $this->render('pagination', ['page' => $page]);
+      $this->render('pagination');
 
     }
 

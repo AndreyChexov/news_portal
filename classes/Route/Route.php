@@ -4,7 +4,7 @@ class Route
 {
     public function run(): void
     {
-        $pathData = explode('path=', $_SERVER['QUERY_STRING'] ?? 'path=');
+        $pathData = explode('path=', $_SERVER['REQUEST_URI'] ?? 'path=');
         $params = [];
         
 
