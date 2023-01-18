@@ -15,31 +15,14 @@ class NewsController extends AbstractController
    
     }
 
-    public function animals (): void {
+    public function category (): void {
         $newsModel = $this->getModel('news');
         
-        $allNews = $newsModel->getAllNews();
-
-        $this->render('animals', ['allNews' => $allNews]);
-    }
-    
-    public function cities (): void {
-        $newsModel = $this->getModel('news');
-        
-        $allNews = $newsModel->getAllNews();
-    
-        
-        $this->render('cities', ['allNews' => $allNews]);
+        $allNews = $newsModel->getAllNewsByCategory($_GET['name']);
+       
+        $this->render('news', ['allNews' => $allNews]);
     }
 
-    public function cars (): void {
-        $newsModel = $this->getModel('news');
-        
-        $allNews = $newsModel->getAllNews();
-    
-        
-        $this->render('cars', ['allNews' => $allNews]);
-    }
 
             public function single () {
 

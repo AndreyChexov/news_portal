@@ -8,9 +8,9 @@
 
                     <div class="dropdown-content">
                         <a href="/portal?path=news">Все новости</a>
-                        <a href="/portal?path=news/animals">Животные</a>
-                        <a href="/portal?path=news/cities">Города</a>
-                        <a href="/portal?path=news/cars">Автомобили</a>
+                        <a href="/portal?path=news/category/&name=Животные">Животные</a>
+                        <a href="/portal?path=news/category/&name=Города">Города</a>
+                        <a href="/portal?path=news/category/&name=Автомобили">Автомобили</a>
                     </div>
 
                 </form>
